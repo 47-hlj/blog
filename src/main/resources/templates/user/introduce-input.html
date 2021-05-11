@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head  th:replace="_fragments :: head(~{::title},BBS)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修改个人资料</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/me.css">
+</head>
+<body>
+
+
+<!--导航-->
+<nav th:replace="_fragments :: menu(4)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+</nav>
+
+<!--中间内容-->
+<div  class="m-container m-padded-tb-big">
+    <div class="ui container">
+        <form id="introduce-form" action="#" class="ui.form" th:object="${owner}" th:action="@{/about/{id}/save(id=${owner.id})}" method="post">
+            <div class="field">
+                <div class="ui left labeled input">
+                    <label class="ui teal basic label">你的昵称</label>
+                    <input type="text" name="nickname" th:value="*{nickname}" placeholder="请输入你的昵称">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="ui left labeled input">
+                    <label class="ui teal basic label">你的邮箱</label>
+                    <input type="text" name="email" th:value="*{email}" placeholder="请输入你的邮箱">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="ui left labeled input">
+                    <label class="ui teal basic label">工作性质</label>
+                    <input type="text" name="workKind" th:value="*{workKind}" placeholder="请输入你的工作性质">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="ui left labeled input">
+                    <label class="ui teal basic label">工作地点</label>
+                    <input type="text" name="workPlace" th:value="*{workPlace}" placeholder="请输入你的工作地点">
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="ui left labeled input">
+                    <label class="ui teal basic label">个人介绍</label>
+                    <textarea name="introduce" rows="10px" cols="70px"  th:value="*{introduce}" placeholder="请输入你的个人介绍"></textarea>
+                </div>
+            </div>
+
+            <div class="ui error message"></div>
+
+            <div class="ui right aligned container">
+                <button type="button" class="ui button" onclick="window.history.go(-1)" >返回</button>
+                <button type="button" id="save-btn" class="ui secondary button">保存</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script>
+    $('.ui.form').form({
+        fields : {
+            nickname : {
+                identifier: 'nickname',
+                rules: [{
+                    type : 'empty',
+                    prompt: '标题：用户昵称不能为空'
+                }]
+            }
+        }
+    });
+    $('#save-btn').click(function () {
+        $('#introduce-form').submit();
+    });
+</script>
+</body>
+</html>
